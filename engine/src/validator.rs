@@ -1,7 +1,7 @@
 use serde_json::Value;
 use jsonschema::{Draft, JSONSchema};
 
-const PROJECT_SCHEMA_JSON: &str = include_str!("../../../data/schema/project.schema.json");
+const PROJECT_SCHEMA_JSON: &str = include_str!("../../data/schema/project.schema.json");
 
 #[derive(Debug)]
 pub enum ValidationError {
