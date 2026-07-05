@@ -1,0 +1,217 @@
+Run cargo check 
+
+    Checking ai_offline_animation_engine v0.1.0 (/home/runner/work/gameon/gameon/engine) 
+
+error[E0432]: unresolved import `serde_json` 
+
+ --> src/loader.rs:3:5 
+
+  | 
+
+3 | use serde_json; 
+
+  |     ^^^^^^^^^^ no external crate `serde_json` 
+
+ 
+
+error[E0432]: unresolved import `serde_json` 
+
+ --> src/validator.rs:1:5 
+
+  | 
+
+1 | use serde_json::Value; 
+
+  |     ^^^^^^^^^^ use of unresolved module or unlinked crate `serde_json` 
+
+  | 
+
+  = help: if you wanted to use a crate named `serde_json`, use `cargo add serde_json` to add it to your `Cargo.toml` 
+
+ 
+
+error[E0432]: unresolved import `jsonschema` 
+
+ --> src/validator.rs:2:5 
+
+  | 
+
+2 | use jsonschema::{Draft, JSONSchema, CompilationOptions}; 
+
+  |     ^^^^^^^^^^ use of unresolved module or unlinked crate `jsonschema` 
+
+  | 
+
+  = help: if you wanted to use a crate named `jsonschema`, use `cargo add jsonschema` to add it to your `Cargo.toml` 
+
+ 
+
+error[E0432]: unresolved import `serde` 
+
+ --> src/models.rs:1:5 
+
+  | 
+
+1 | use serde::{Deserialize, Serialize}; 
+
+  |     ^^^^^ use of unresolved module or unlinked crate `serde` 
+
+  | 
+
+  = help: if you wanted to use a crate named `serde`, use `cargo add serde` to add it to your `Cargo.toml` 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+ --> src/models.rs:4:3 
+
+  | 
+
+4 | #[serde(rename_all = "camelCase")] 
+
+  |   ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:14:3 
+
+   | 
+
+14 | #[serde(rename_all = "camelCase")] 
+
+   |   ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:17:7 
+
+   | 
+
+17 |     #[serde(rename = "type")] 
+
+   |       ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:25:3 
+
+   | 
+
+25 | #[serde(rename_all = "camelCase")] 
+
+   |   ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:31:3 
+
+   | 
+
+31 | #[serde(rename_all = "camelCase")] 
+
+   |   ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:40:3 
+
+   | 
+
+40 | #[serde(rename_all = "camelCase")] 
+
+   |   ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:48:3 
+
+   | 
+
+48 | #[serde(rename_all = "camelCase")] 
+
+   |   ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:55:3 
+
+   | 
+
+55 | #[serde(rename_all = "camelCase")] 
+
+   |   ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:64:7 
+
+   | 
+
+64 |     #[serde(default)] 
+
+   |       ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:69:3 
+
+   | 
+
+69 | #[serde(rename_all = "camelCase")] 
+
+   |   ^^^^^ 
+
+ 
+
+error: cannot find attribute `serde` in this scope 
+
+  --> src/models.rs:75:3 
+
+   | 
+
+75 | #[serde(rename_all = "camelCase")] 
+
+   |   ^^^^^ 
+
+ 
+
+error[E0433]: cannot find module or crate `serde_json` in this scope 
+
+   --> src/validator.rs:119:31 
+
+    | 
+
+119 |     let schema_value: Value = serde_json::from_str(PROJECT_SCHEMA_JSON) 
+
+    |                               ^^^^^^^^^^ use of unresolved module or unlinked crate `serde_json` 
+
+    | 
+
+    = help: if you wanted to use a crate named `serde_json`, use `cargo add serde_json` to add it to your `Cargo.toml` 
+
+ 
+
+Some errors have detailed explanations: E0432, E0433. 
+
+For more information about an error, try `rustc --explain E0432`. 
+
+error: could not compile `ai_offline_animation_engine` (lib) due to 16 previous errors

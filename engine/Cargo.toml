@@ -3,9 +3,10 @@ name = "ai_offline_animation_engine"
 version = "0.1.0"
 edition = "2021"
 
-# No dependencies at this stage.
-# The engine is fully offline and deterministic.
-# JSON support (serde) will be added in later phases.
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+jsonschema = "0.17"
 
 [[bin]]
 name = "animation_engine"
