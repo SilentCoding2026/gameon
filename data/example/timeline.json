@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "duration": 15.0,
+  "frame_rate": 30,
+  "tracks": [
+    {
+      "id": "track_hero_motion",
+      "type": "animation",
+      "target": "hero_node",
+      "animation_id": "hero_walk",
+      "start_offset": 1.0
+    },
+    {
+      "id": "track_bg_music",
+      "type": "audio",
+      "target": "bgm_asset",
+      "start_offset": 0.0
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://offline-animation-engine.local/schema/animation.schema.json",
+  "title": "Animation",
+  "description": "Keyframe animation data targeting a scene node.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique animation identifier."
+    },
+    "target_node": {
+      "type": "string",
+      "description": "Scene node id this animation applies to."
+    },
+    "keyframes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Keyframe"
+      }
+    }
+  },
+  "required": ["schema_version", "id", "target_node", "keyframes"],
+  "additionalProperties": false,
+  "$defs": {
+    "Keyframe": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Time in seconds."
+        },
+        "easing": {
+          "type": "string",
+          "description": "Optional easing function name (e.g., linear, ease-in-out)."
+        },
+        "value": {
+          "$ref": "#/$defs/KeyframeValue"
+        }
+      },
+      "required": ["time", "value"],
+      "additionalProperties": false
+    },
+    "KeyframeValue": {
+      "type": "object",
+      "properties": {
+        "transform": {
+          "$ref": "#/$defs/Transform"
+        },
+        "opacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "required": ["transform"],
+      "additionalProperties": false
+    },
+    "Transform": {
+      "type": "object",
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "rotation": { "type": "number" },
+        "scaleX": { "type": "number" },
+        "scaleY": { "type": "number" }
+      },
+      "required": ["x", "y", "rotation", "scaleX", "scaleY"],
+      "additionalProperties": false
+    }
+  }
+}

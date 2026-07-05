@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "id": "scene_main",
+  "name": "Main Scene",
+  "nodes": [
+    {
+      "id": "root_bg",
+      "parent": null,
+      "transform": {
+        "x": 0,
+        "y": 0,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1
+      }
+    },
+    {
+      "id": "hero_node",
+      "parent": null,
+      "transform": {
+        "x": 400,
+        "y": 300,
+        "rotation": 0,
+        "scaleX": 1,
+        "scaleY": 1
+      }
+    }
+  ]
+}

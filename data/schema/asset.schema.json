@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://offline-animation-engine.local/schema/asset.schema.json",
+  "title": "Asset",
+  "description": "A media asset used in the animation project.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the asset."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["sprite", "background", "audio"]
+    },
+    "source": {
+      "type": "string",
+      "description": "Relative path to the asset file."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Technical metadata depending on asset type.",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "duration": {
+          "type": "number",
+          "minimum": 0
+        },
+        "channels": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["schema_version", "id", "type", "source", "metadata"],
+  "additionalProperties": false
+}

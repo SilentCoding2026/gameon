@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "id": "hero_walk",
+  "target_node": "hero_node",
+  "keyframes": [
+    {
+      "time": 0.0,
+      "easing": "linear",
+      "value": {
+        "transform": {
+          "x": 400,
+          "y": 300,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        "opacity": 1.0
+      }
+    },
+    {
+      "time": 2.0,
+      "value": {
+        "transform": {
+          "x": 600,
+          "y": 300,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1
+        },
+        "opacity": 1.0
+      }
+    },
+    {
+      "time": 4.0,
+      "easing": "ease-out",
+      "value": {
+        "transform": {
+          "x": 800,
+          "y": 250,
+          "rotation": 15,
+          "scaleX": 1.2,
+          "scaleY": 1.2
+        },
+        "opacity": 0.8
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[package]
+name = "ai_offline_animation_engine"
+version = "0.1.0"
+edition = "2021"
+
+# No dependencies at this stage.
+# The engine is fully offline and deterministic.
+# JSON support (serde) will be added in later phases.
+
+[[bin]]
+name = "animation_engine"
+path = "src/main.rs"
+
+[lib]
+name = "animation_engine_lib"
+path = "src/lib.rs"

@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://offline-animation-engine.local/schema/timeline.schema.json",
+  "title": "Timeline",
+  "description": "Top-level composition of animation and audio tracks over a duration.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "duration": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total timeline duration in seconds."
+    },
+    "frame_rate": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Frames per second."
+    },
+    "tracks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Track"
+      }
+    }
+  },
+  "required": ["schema_version", "duration", "frame_rate", "tracks"],
+  "additionalProperties": false,
+  "$defs": {
+    "Track": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["animation", "audio"],
+          "description": "Track content type."
+        },
+        "target": {
+          "type": "string",
+          "description": "Node id (for animation) or asset id (for audio)."
+        },
+        "animation_id": {
+          "type": "string",
+          "description": "Reference to an animation (required for animation tracks)."
+        },
+        "start_offset": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Track start time offset in seconds."
+        }
+      },
+      "required": ["id", "type", "target", "start_offset"],
+      "additionalProperties": false,
+      "if": {
+        "properties": { "type": { "const": "animation" } }
+      },
+      "then": {
+        "required": ["animation_id"]
+      }
+    }
+  }
+}
