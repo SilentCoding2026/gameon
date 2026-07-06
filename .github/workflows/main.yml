@@ -1,4 +1,4 @@
-name: CI Build & Dry Execution
+name: CI Build & Test
 
 on:
   push:
@@ -12,25 +12,27 @@ defaults:
 
 jobs:
   build-and-check:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Rust (rustup)
-        uses: actions-rs/toolchain@v1
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
         with:
           toolchain: stable
-          override: true
-          profile: minimal
 
-      - name: Verify rustc and cargo versions
-        run: |
-          rustc --version
-          cargo --version
+      - name: Cargo check
+        run: cargo check --all-targets
 
-      - name: Run cargo check
-        run: cargo check
+      - name: Cargo test
+        run: cargo test --all-targets
 
-      - name: Run cargo build (release)
+      - name: Cargo build (release)
         run: cargo build --release
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: animation-engine-windows
+          path: engine/target/release/animation_engine.exe
