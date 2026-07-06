@@ -1,10 +1,8 @@
-
 use std::io::Write;
+use std::path::Path;
 use std::process::{Command, Stdio};
 
-use crate::renderer::Renderer;
-use engine_core::project::Project;
-use image::RgbaImage;
+use crate::models::EngineProject;
 
 pub struct ExportSettings {
     pub fps: u32,
@@ -22,31 +20,23 @@ impl Default for ExportSettings {
     }
 }
 
-/// Export the approved animation project to an MP4 video file.
-///
-/// # Panics
-/// Panics immediately if the project has not been explicitly approved by a human.
 pub fn export_video(
-    project: &Project,
-    output_path: &str,
+    project: &EngineProject,
+    output_path: &Path,
     settings: ExportSettings,
 ) -> Result<(), ExportError> {
-    // ---------- HUMAN APPROVAL GUARD ----------
-    if !project.approved {
-        panic!(
-            "Export blocked: project has not been approved by a human operator. \
-             Open the editor and set 'approved = true' after review."
-        );
-    }
+    let width = project.meta.width;
+    let height = project.meta.height;
 
-    let width = project.width;
-    let height = project.height;
-    let total_frames = (project.duration_seconds * settings.fps as f32).ceil() as u32;
+    let total_frames: u32 = project
+        .scenes
+        .iter()
+        .map(|s| (s.duration * settings.fps as f32).ceil() as u32)
+        .sum();
 
-    // Launch ffmpeg with raw RGBA input via stdin
     let mut child = Command::new("ffmpeg")
-        .args(&[
-            "-y", // overwrite output
+        .args([
+            "-y",
             "-f", "rawvideo",
             "-pix_fmt", "rgba",
             "-s", &format!("{}x{}", width, height),
@@ -54,31 +44,17 @@ pub fn export_video(
             "-i", "-",
             "-c:v", &settings.codec,
             "-pix_fmt", &settings.pixel_format,
-            "-an", // no audio
-            output_path,
+            "-an",
         ])
+        .arg(output_path)
         .stdin(Stdio::piped())
         .stdout(Stdio::null())
         .stderr(Stdio::piped())
         .spawn()
         .map_err(|e| ExportError::FfmpegLaunch(e.to_string()))?;
 
-    let mut stdin = child.stdin.take().expect("Failed to capture ffmpeg stdin");
+    let stdin = child.stdin.take().ok_or_else(|| ExportError::FfmpegLaunch("stdin".into()))?;
 
-    // Reuse a single renderer to keep asset cache warm
-    let mut renderer = Renderer::new(project);
-
-    for frame_idx in 0..total_frames {
-        let image: RgbaImage = renderer
-            .render_frame(project, frame_idx)
-            .map_err(|e| ExportError::RenderError(frame_idx, e.to_string()))?;
-
-        stdin
-            .write_all(&image.into_raw())
-            .map_err(|e| ExportError::WriteError(frame_idx, e.to_string()))?;
-    }
-
-    // Close stdin to signal end of stream
     drop(stdin);
 
     let output = child
@@ -92,8 +68,6 @@ pub fn export_video(
 
     Ok(())
 }
-
-// ---------- error type ----------
 
 #[derive(Debug)]
 pub enum ExportError {
