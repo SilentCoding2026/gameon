@@ -1,4 +1,4 @@
-use crate::models::EngineProject;
+﻿use crate::models::EngineProject;
 
 #[derive(Debug)]
 pub enum BlendMode {
@@ -32,8 +32,8 @@ impl Renderer {
         }
     }
 
-    pub fn render_frame(&mut self, project: &EngineProject, frame: u32) -> Result<Vec<u8>, RenderError> {
-        let mut buffer = vec![0u8; (self.width * self.height * 4) as usize];
+    pub fn render_frame(&mut self, _project: &EngineProject, _frame: u32) -> Result<Vec<u8>, RenderError> {
+        let buffer = vec![0u8; (self.width * self.height * 4) as usize];
         Ok(buffer)
     }
 }

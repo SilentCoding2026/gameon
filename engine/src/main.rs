@@ -1,4 +1,4 @@
-use std::env;
+﻿use std::env;
 use std::path::Path;
 
 fn main() {
@@ -23,16 +23,17 @@ fn main() {
         std::process::exit(1);
     }
 
-    println!("[Animation Engine] Starting...");
-    println!("[Animation Engine] Project path: {}", project_path);
+    println!("Engine start");
+    println!("Project path: {}", project_path);
+    println!("Runtime start");
 
-    match engine::runtime::run(path) {
-        Ok(output_path) => {
-            println!("[Animation Engine] Runtime completed successfully");
-            println!("[Animation Engine] Output saved to: {}", output_path);
+    match animation_engine_lib::run_cli(path) {
+        Ok(()) => {
+            println!("Runtime end");
+            println!("Engine finished successfully");
         }
         Err(e) => {
-            eprintln!("[Animation Engine] Runtime failed: {}", e);
+            eprintln!("Error: {}", e);
             std::process::exit(1);
         }
     }

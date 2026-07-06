@@ -11,3 +11,7 @@ pub mod runtime;
 
 pub use loader::load_project;
 pub use models::EngineProject;
+
+pub fn run_cli(project_path: &std::path::Path) -> Result<(), String> {
+    crate::runtime::run(project_path).map_err(|e| e.to_string())
+}
